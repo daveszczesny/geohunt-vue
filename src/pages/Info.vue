@@ -37,7 +37,7 @@
     <p>Meet the team behind Geohunt</p>
     <p>Team leader: <span>Brian</span></p>
     <p>Fullstack developer: <span>Dave</span></p>
-    <p>Frotn end developer: <span>Tomasz</span></p>
+    <p>Front end developer: <span>Tomasz</span></p>
 
 </template>
 

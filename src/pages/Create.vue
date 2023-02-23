@@ -33,6 +33,7 @@
                     <input @click="login" type="button" id="loginbutton" value="Login">
                 </div>
                 <p style="display: none;" id="wrongpassword">Wrong password</p>
+                <p style="display: none;" id="emptyFields">Some fields are empty</p>
             </form>
         </div>
     </div>
@@ -48,8 +49,13 @@ import { updateUser } from '../scripts/create'
 import { setLBname } from '../global.js'
 
 export default {
-    setup(){
+    setup() {
         document.getElementById('htmlTitle').innerText = "GeoHunt - Create Lobby"
+    },
+    data() {
+        return {
+            wrongpassword_boolean: false,
+        }
     },
     methods: {
         create_lobby(lobbyname, password) {
@@ -64,6 +70,7 @@ export default {
                     console.log(result.data);
                 })
 
+                
 
         },
 
@@ -72,21 +79,46 @@ export default {
             let lobbyname = document.getElementById("lobbyname");
             let password = document.getElementById("password");
             let displayname = document.getElementById('displayname');
+
+            if (lobbyname.value == "" || password.value == "" || displayname.value == "") {
+                document.getElementById('emptyFields').style = "display:block;";
+                return;
+            }
+
             const writeUser = httpsCallable(getFunctions(), 'writeUserToRTDB');
             signInAnonymously(getAuth())
                 .then(() => {
                     console.log("Signed in succesfully");
-                    if (document.getElementById('loginbutton').value == 'create')
+                    if (document.getElementById('loginbutton').value == 'join') {
+                        get(child(ref(getDatabase()), lobbyname.value + "/settings")).then(async (snap) => {
+                            if (password.value != snap.val()['password']) {
+                                document.getElementById('wrongpassword').style = "display: block";
+                            } else {
+                                writeUser({
+                                    displayname: displayname.value,
+                                    lobbyname: lobbyname.value
+                                }).then((result) => {
+                                    console.log(result.data);
+                                    updateUser(getAuth(), lobbyname.value);
+                                    setLBname(lobbyname.value);
+                                    this.$router.push('/lobby')
+                                })
+                            }
+                        })
+                    }
+                    if (document.getElementById('loginbutton').value == 'create') {
                         this.create_lobby(lobbyname.value, password.value);
-                    writeUser({
-                        displayname: displayname.value,
-                        lobbyname: lobbyname.value
-                    }).then((result) => {
-                        console.log(result.data);
-                        updateUser(getAuth(), lobbyname.value);
-                        setLBname(lobbyname.value);
-                        this.$router.push('/lobby')
-                    })
+                        writeUser({
+                            displayname: displayname.value,
+                            lobbyname: lobbyname.value
+                        }).then((result) => {
+                            console.log(result.data);
+                            updateUser(getAuth(), lobbyname.value);
+                            setLBname(lobbyname.value);
+                            this.$router.push('/lobby')
+                        })
+                    }
+
                 })
         },
         passwordListener() {
