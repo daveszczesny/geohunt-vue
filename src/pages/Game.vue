@@ -5,7 +5,7 @@
   <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" style="width: 100%; height:800px;" :map-id="mapID" :center="center" :zoom="15"
     streetViewControl=false :mapTypeControl=false scaleControl=false zoomControl=false keyboardShortcuts=false
     scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true disableDefaultUI=true
-    disableDoubleClickZoom=false :gestureHandling="greedy">
+    disableDoubleClickZoom=false gestureHandling="greedy">
     <Circle v-for="circle in proxyCircles" :options="circle" />
     <div v-for="hunter in proxyHunter">
       <CustomMarker :options="
@@ -41,12 +41,13 @@ export default defineComponent({
   },
   mounted: function () {
     window.setInterval(() => {
-
+      window.scrollTo(500,0);
       this.getLocation();
     }, 5000)
   },
 
   setup() {
+    
     const center = { lat: 53.2740621, lng: -9.0534727 }
     const mapID = "bc3210211695b110"
 
@@ -127,36 +128,9 @@ export default defineComponent({
 })
 </script>
 
-<!-- <template>
-  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" style="width: 100%; height:800px;" :map-id="mapID" :center="center" :zoom="15"
-    streetViewControl=false :mapTypeControl=false scaleControl=false zoomControl=false keyboardShortcuts=false
-    scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true disableDefaultUI=true
-    disableDoubleClickZoom=false :gestureHandling="greedy">
-    <Marker :options="{ position: center }" />
-  </GoogleMap>
-</template>
-
-<script>
-import { defineComponent } from 'vue'
-import { GoogleMap, Marker, Circle, CustomMarker } from 'vue3-google-map'
-import { getAuth } from '@firebase/auth'
-import { getDatabase, ref, update, get, child } from 'firebase/database'
-import { getLBname } from '../global'
-import { getGoogleAPIKey } from '../api/GoogleMaps'
-
-export default defineComponent({
-  components: { GoogleMap, Marker },
-  data() {
-    return {
-      lobby_name: getLBname(),
-      googleAPIKEY: getGoogleAPIKey(),
-      hunterIcon: "https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunter.png?alt=media&token=2bf806bd-98ab-467d-aba7-08270ceeef1b",
-    }
-  },
-  setup() {
-    const center = { lat: 40.689247, lng: -74.044502 }
-
-    return { center }
-  },
-})
-</script> -->
+<style>
+body{
+  overscroll-behavior-y: contain;
+  overflow: hidden;
+}
+</style>

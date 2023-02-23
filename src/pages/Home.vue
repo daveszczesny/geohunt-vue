@@ -14,7 +14,6 @@
 
 </template>
 
-
 <style scoped>
 .link {
     float: none;
