@@ -34,14 +34,37 @@ import { getAuth, signInAnonymously } from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
 import { httpsCallable } from 'firebase/functions';
 import { updateUser } from '../scripts/create'
+import { get, child, ref, getDatabase, remove } from '@firebase/database'
 
 import { setLBname } from '../global.js'
 export default {
 
     data() {
-        return{
+        return {
             lobbyname: this.$route.params.lobbyID,
         }
+    },
+
+    mounted() {
+        get(child(ref(getDatabase()), this.lobbyname)).then((snap) => {
+            if (snap.exists()) {
+                // checks if the lobby is apart of garbage,
+                // aka if the lobby has been left behind without any users.
+                get(child(ref(getDatabase()), this.lobbyname + '/users')).then(async (snap2) => {
+                    if (await (!snap2.exists())) {
+                        remove(ref(getDatabase()), this.lobbyname)
+                        alert("Lobby does not exist!");
+                        this.$router.push('/');
+                    }
+                });
+
+
+            } else {
+
+                alert("Lobby does not exist!");
+                this.$router.push('/');
+            }
+        })
     },
 
     methods: {
