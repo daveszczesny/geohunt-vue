@@ -2,10 +2,10 @@
 
 <template>
   <div id="roleArea">You are <span id="banner">being hunted</span></div>
-  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" style="width: 100%; height:800px;" :map-id="mapID" :center="center" :zoom="15"
-    streetViewControl=false :mapTypeControl=false scaleControl=false zoomControl=false keyboardShortcuts=false
-    scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true disableDefaultUI=true
-    disableDoubleClickZoom=false gestureHandling="greedy">
+  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" style="width: 100%; height:800px;" :map-id="mapID"
+    :center="center" :zoom="15" streetViewControl=false :mapTypeControl=false scaleControl=false zoomControl=false
+    keyboardShortcuts=false scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true
+    disableDefaultUI=true disableDoubleClickZoom=false gestureHandling="greedy">
     <Circle v-for="circle in proxyCircles" :options="circle" />
     <div v-for="hunter in proxyHunter">
       <CustomMarker :options="
@@ -41,13 +41,13 @@ export default defineComponent({
   },
   mounted: function () {
     window.setInterval(() => {
-      window.scrollTo(500,0);
+      window.scrollTo(500, 0);
       this.getLocation();
     }, 5000)
   },
 
   setup() {
-    
+
     const center = { lat: 53.2740621, lng: -9.0534727 }
     const mapID = "bc3210211695b110"
 
@@ -58,8 +58,14 @@ export default defineComponent({
       if (snapshot.val()["team"] == "hunter") {
         document.getElementById('banner').innerText = "a hunter";
         document.getElementById('roleArea').style = "background-color: rgb(200,0,0)";
+
+        document.getElementById('htmlTitle').innerText = "GeoHunt - gone hunting";
+      } else {
+
+        document.getElementById('htmlTitle').innerText = "GeoHunt - gone hiding";
       }
     });
+
 
     return { center, mapID, circles, hunterProxy }
   },
@@ -129,7 +135,7 @@ export default defineComponent({
 </script>
 
 <style>
-body{
+body {
   overscroll-behavior-y: contain;
   overflow: hidden;
 }

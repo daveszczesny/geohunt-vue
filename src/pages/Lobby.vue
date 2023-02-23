@@ -26,7 +26,6 @@ import { getLBname } from '../global'
 export default {
 
 
-
     method: {
         gamestart() {
             console.log("Hello?")
@@ -44,6 +43,8 @@ export default {
     async mounted() {
         if (getAuth().currentUser == null)
             this.$router.push('/')
+
+        document.getElementById('htmlTitle').innerText = "GeoHunt - " + this.lobby_name
 
         // shows start button for host
         get(child(ref(getDatabase()), this.lobby_name + '/users')).then((snap) => {

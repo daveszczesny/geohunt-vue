@@ -48,7 +48,9 @@ import { updateUser } from '../scripts/create'
 import { setLBname } from '../global.js'
 
 export default {
-
+    setup(){
+        document.getElementById('htmlTitle').innerText = "GeoHunt - Create Lobby"
+    },
     methods: {
         create_lobby(lobbyname, password) {
             const createLobby = httpsCallable(getFunctions(), 'createLobby');
