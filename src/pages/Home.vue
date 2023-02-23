@@ -1,6 +1,3 @@
-<script>
-
-</script>
 
 <template>
     <div class="mainText">
@@ -8,11 +5,14 @@
     </div>
     <div class="button-container">
         <router-link  class="link" to="/create">Start</router-link>
-        <router-link class="link" to="/lobby">Info</router-link>
+        <router-link class="link" to="/info">Info</router-link>
     </div>
 
 
 </template>
+
+<script>
+</script>
 
 <style scoped>
 .link {
