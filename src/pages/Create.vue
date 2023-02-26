@@ -47,6 +47,7 @@ import { httpsCallable } from 'firebase/functions';
 import { updateUser } from '../scripts/create'
 
 import { setLBname } from '../global.js'
+import { icons } from '../assets/icons';
 
 export default {
     setup() {
@@ -96,7 +97,8 @@ export default {
                             } else {
                                 writeUser({
                                     displayname: displayname.value,
-                                    lobbyname: lobbyname.value
+                                    lobbyname: lobbyname.value,
+                                    icon: icons.hunted_1,
                                 }).then((result) => {
                                     console.log(result.data);
                                     updateUser(getAuth(), lobbyname.value);
@@ -110,7 +112,8 @@ export default {
                         this.create_lobby(lobbyname.value, password.value);
                         writeUser({
                             displayname: displayname.value,
-                            lobbyname: lobbyname.value
+                            lobbyname: lobbyname.value,
+                            icon: icons.hunted_1,
                         }).then((result) => {
                             console.log(result.data);
                             updateUser(getAuth(), lobbyname.value);

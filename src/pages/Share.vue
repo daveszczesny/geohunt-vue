@@ -37,6 +37,7 @@ import { updateUser } from '../scripts/create'
 import { get, child, ref, getDatabase, remove } from '@firebase/database'
 
 import { setLBname } from '../global.js'
+import { icons } from '../assets/icons';
 export default {
 
     data() {
@@ -76,7 +77,8 @@ export default {
                     console.log("Signed in succesfully");
                     writeUser({
                         displayname: displayname.value,
-                        lobbyname: this.lobbyname
+                        lobbyname: this.lobbyname,
+                        icon: icons.hunted_1
                     }).then((result) => {
                         console.log(result.data);
                         updateUser(getAuth(), this.lobbyname);

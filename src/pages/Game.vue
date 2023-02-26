@@ -10,7 +10,7 @@
     <div v-for="hunter in proxyHunter">
       <CustomMarker :options="
         {
-          position: hunter.position,
+          position: hunter.position
         }">
         <div>
           <img
@@ -18,6 +18,14 @@
         </div>
       </CustomMarker>
     </div>
+
+    <CustomMarker v-for="hunted in proxyHunted" :options="markerOptions"/>
+
+    <CustomMarker v-for="hunted in proxyHunted" :options="{
+      position: hunted.position,
+    }">
+      <img :src="hunted.icon" />
+    </CustomMarker>
 
   </GoogleMap>
 </template>
@@ -36,7 +44,16 @@ export default defineComponent({
       lobby_name: getLBname(),
       proxyCircles: this.circles,
       proxyHunter: this.hunterProxy,
+      proxyHunted: this.huntedProxy,
       hunterIcon: "https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunter.png?alt=media&token=2bf806bd-98ab-467d-aba7-08270ceeef1b",
+
+      markerOptions: {
+        position: {lat:   53.28375377364412, lng: -9.049084323437237},
+        icon: {
+          url:"https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunted1.png?alt=media&token=cc5a6ae7-3119-4f93-b6e8-c3ce689bff4f",
+          scaledSize: {width:20,height:20}
+        },
+      }
     }
   },
   mounted: function () {
@@ -52,7 +69,8 @@ export default defineComponent({
     const mapID = "bc3210211695b110"
 
     const circles = []
-    const hunterProxy = []
+    const hunterProxy = []  
+    const huntedProxy = []
 
     get(child(ref(getDatabase()), getLBname() + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
       if (snapshot.val()["team"] == "hunter") {
@@ -67,7 +85,7 @@ export default defineComponent({
     });
 
 
-    return { center, mapID, circles, hunterProxy }
+    return { center, mapID, circles, hunterProxy, huntedProxy }
   },
 
   methods: {
@@ -89,6 +107,13 @@ export default defineComponent({
       });
     },
 
+    drawHunted(coords, img){
+      this.proxyHunted.push({
+        position: coords,
+        icon: img,
+      });
+    },
+
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -105,6 +130,7 @@ export default defineComponent({
             get(child(ref(getDatabase()), this.lobby_name + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
               this.proxyCircles = []
               this.proxyHunter = []
+              this.proxyHunted = []
               if (snapshot.val()["team"] == "hunter") {
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
                   snap.forEach(player => {
@@ -119,7 +145,8 @@ export default defineComponent({
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
                   snap.forEach(player => {
                     if (player.val()["team"] == "hunter") { return; } // prevents the drawing of the hunter for the hunted
-                    this.drawCircle(player.val()["location"]);
+                    // this.drawCircle(player.val()["location"])
+                    this.drawHunted(player.val()["location"], player.val()["icon"])
                   })
                 })
               }

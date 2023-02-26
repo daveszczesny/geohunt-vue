@@ -33,13 +33,15 @@ exports.writeUserToRTDB = functions.https.onCall((data, context) => {
     try{
         const displayname = data.displayname;
         const lobbyname = data.lobbyname;
+        const iconlink = data.icon;
         const uid = context.auth.uid;
 
         return admin.database().ref(lobbyname + "/users/" + uid).set({
             display_name: displayname,
             host: false,
             location: null,
-            team: "hunted"
+            team: "hunted",
+            icon: iconlink,
         }).then(()=>{
             console.log("User added to lobby");
             return "User added!";
