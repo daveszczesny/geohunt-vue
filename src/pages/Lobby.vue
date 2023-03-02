@@ -11,8 +11,8 @@
                     <div id="startGameDiv" style="display: none">
                         <button id="startGameBtn">Start</button>
                         <button @click="copyLobbyURL">Get Lobby URL</button>
-                        
-                        
+
+
                         <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
                     </div>
                 </center>
@@ -24,37 +24,40 @@
 <script>
 
 
-import {getLBname} from '../global'
+import { getLBname } from '../global'
 import { getAuth } from 'firebase/auth';
 import { get, child, onValue, ref, getDatabase, update } from 'firebase/database';
 
 
 import { icons } from '../assets/icons';
-
-import { settings } from '../settings';
-
 export default {
 
 
-    method: {
+    data() {
+        return {
+            lobby_name: getLBname(),
+            lobbyID: null,
+        };
+    },
+
+    methods: {
         gamestart() {
-            console.log("Hello?")
-            this.$router.push('/')
-        }
+            console.log('Hello?');
+            this.$router.push('/');
+        },
+
+        async copyLobbyURL() {
+
+            const url = window.location.href.replace(/\/$/, '')
+            const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
+            await navigator.clipboard.writeText(shareLink);
+            alert('Lobby URL copied to clipboard!');
+        },
     },
 
-    async copyLobbyURL() {
-      
-      const url = window.location.href.replace(/\/$/, '')
-      const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
-      await navigator.clipboard.writeText(shareLink);
-      alert('Lobby URL copied to clipboard!');
-    },
-  },
 
-    
 
-    
+
 
     async mounted() {
         if (getAuth().currentUser == null)
@@ -69,14 +72,10 @@ export default {
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then((snap) => {
                     const random = Math.floor(Math.random() * Object.keys(snap.val()).length)
 
-                    if (settings["hunterSelection"] == "random") {
-                        update(ref(getDatabase(), this.lobby_name + "/users/" + Object.keys(snap.val())[random]), {
-                            team: "hunter",
-                            icon: icons.hunter
-                        })
-                    }
-
-
+                    update(ref(getDatabase(), this.lobby_name + "/users/" + Object.keys(snap.val())[random]), {
+                        team: "hunter",
+                        icon: icons.hunter
+                    })
                 });
             }
         });
