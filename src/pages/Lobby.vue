@@ -10,7 +10,6 @@
                     </ul>
                     <div id="startGameDiv" style="display: none">
                         <button id="startGameBtn">Start</button>
-                        <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
                     </div>
                 </center>
             </div>
@@ -24,12 +23,14 @@ import { get, child, onValue, ref, getDatabase, update } from 'firebase/database
 
 import { getLBname } from '../global'
 import { icons } from '../assets/icons';
+
+import { settings } from '../settings';
+
 export default {
 
 
     method: {
         gamestart() {
-            console.log("Hello?")
             this.$router.push('/')
         }
     },
@@ -54,10 +55,14 @@ export default {
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then((snap) => {
                     const random = Math.floor(Math.random() * Object.keys(snap.val()).length)
 
-                    update(ref(getDatabase(), this.lobby_name + "/users/" + Object.keys(snap.val())[random]), {
-                        team: "hunter",
-                        icon: icons.hunter
-                    })
+                    if (settings["hunterSelection"] == "random") {
+                        update(ref(getDatabase(), this.lobby_name + "/users/" + Object.keys(snap.val())[random]), {
+                            team: "hunter",
+                            icon: icons.hunter
+                        })
+                    }
+
+
                 });
             }
         });
