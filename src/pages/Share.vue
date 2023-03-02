@@ -78,7 +78,7 @@ export default {
                     writeUser({
                         displayname: displayname.value,
                         lobbyname: this.lobbyname,
-                        icon: icons.hunted_1
+                        icon: icons[Object.keys(icons)[Math.floor(Math.random()*Object.keys(icons).length)]],
                     }).then((result) => {
                         console.log(result.data);
                         updateUser(getAuth(), this.lobbyname);

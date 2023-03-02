@@ -14,12 +14,12 @@
         }">
         <div>
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunter.png?alt=media&token=8dbbfdde-2972-4f21-84b0-a3415fea435d" />
+            :src="hunter.icon" />
         </div>
       </CustomMarker>
     </div>
 
-    <CustomMarker v-for="hunted in proxyHunted" :options="markerOptions"/>
+    <!-- <CustomMarker v-for="hunted in proxyHunted" :options="markerOptions"/> -->
 
     <CustomMarker v-for="hunted in proxyHunted" :options="{
       position: hunted.position,
@@ -45,15 +45,14 @@ export default defineComponent({
       proxyCircles: this.circles,
       proxyHunter: this.hunterProxy,
       proxyHunted: this.huntedProxy,
-      hunterIcon: "https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunter.png?alt=media&token=2bf806bd-98ab-467d-aba7-08270ceeef1b",
 
-      markerOptions: {
-        position: {lat:   53.28375377364412, lng: -9.049084323437237},
-        icon: {
-          url:"https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunted1.png?alt=media&token=cc5a6ae7-3119-4f93-b6e8-c3ce689bff4f",
-          scaledSize: {width:20,height:20}
-        },
-      }
+      // markerOptions: {
+      //   position: {lat:   53.28375377364412, lng: -9.049084323437237},
+      //   icon: {
+      //     url:"https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunted1.png?alt=media&token=cc5a6ae7-3119-4f93-b6e8-c3ce689bff4f",
+      //     scaledSize: {width:20,height:20}
+      //   },
+      // }
     }
   },
   mounted: function () {
@@ -101,9 +100,10 @@ export default defineComponent({
       });
     },
 
-    drawHunter(coords) {
+    drawHunter(coords, img) {
       this.proxyHunter.push({
-        position: coords
+        position: coords,
+        icon: img
       });
     },
 
@@ -135,7 +135,7 @@ export default defineComponent({
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
                   snap.forEach(player => {
                     if (player.val()["team"] == "hunter") {
-                      this.drawHunter(player.val()["location"]); // hunter icon
+                      this.drawHunter(player.val()["location"], player.val()["icon"]); // hunter icon
                     } else {
                       this.drawCircle(player.val()["location"]); // hunted icon
                     }

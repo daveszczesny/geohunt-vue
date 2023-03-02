@@ -23,6 +23,7 @@ import { getAuth } from 'firebase/auth';
 import { get, child, onValue, ref, getDatabase, update } from 'firebase/database';
 
 import { getLBname } from '../global'
+import { icons } from '../assets/icons';
 export default {
 
 
@@ -54,7 +55,8 @@ export default {
                     const random = Math.floor(Math.random() * Object.keys(snap.val()).length)
 
                     update(ref(getDatabase(), this.lobby_name + "/users/" + Object.keys(snap.val())[random]), {
-                        team: "hunter"
+                        team: "hunter",
+                        icon: icons.hunter
                     })
                 });
             }

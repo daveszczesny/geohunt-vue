@@ -98,7 +98,7 @@ export default {
                                 writeUser({
                                     displayname: displayname.value,
                                     lobbyname: lobbyname.value,
-                                    icon: icons.hunted_1,
+                                    icon: icons[Object.keys(icons)[Math.floor(Math.random()*Object.keys(icons).length)]],
                                 }).then((result) => {
                                     console.log(result.data);
                                     updateUser(getAuth(), lobbyname.value);
@@ -113,7 +113,7 @@ export default {
                         writeUser({
                             displayname: displayname.value,
                             lobbyname: lobbyname.value,
-                            icon: icons.hunted_1,
+                            icon: icons[Object.keys(icons)[Math.floor(Math.random()*Object.keys(icons).length)]],
                         }).then((result) => {
                             console.log(result.data);
                             updateUser(getAuth(), lobbyname.value);
