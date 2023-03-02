@@ -4,6 +4,8 @@
 
 ```sh
 npm install
+npm install vue@latest
+npm install --save vue-router@latest
 ```
 
 ### Compile and Hot-Reload for Development

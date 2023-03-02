@@ -10,6 +10,10 @@
                     </ul>
                     <div id="startGameDiv" style="display: none">
                         <button id="startGameBtn">Start</button>
+                        <button @click="copyLobbyURL">Get Lobby URL</button>
+                        
+                        
+                        <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
                     </div>
                 </center>
             </div>
@@ -18,10 +22,13 @@
 </template>
 
 <script>
+
+
+import {getLBname} from '../global'
 import { getAuth } from 'firebase/auth';
 import { get, child, onValue, ref, getDatabase, update } from 'firebase/database';
 
-import { getLBname } from '../global'
+
 import { icons } from '../assets/icons';
 
 import { settings } from '../settings';
@@ -31,16 +38,23 @@ export default {
 
     method: {
         gamestart() {
+            console.log("Hello?")
             this.$router.push('/')
         }
     },
 
-    data() {
-        return {
-            lobby_name: getLBname(),
-
-        }
+    async copyLobbyURL() {
+      
+      const url = window.location.href.replace(/\/$/, '')
+      const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
+      await navigator.clipboard.writeText(shareLink);
+      alert('Lobby URL copied to clipboard!');
     },
+  },
+
+    
+
+    
 
     async mounted() {
         if (getAuth().currentUser == null)
@@ -106,8 +120,8 @@ export default {
         });
 
     },
+}
 
-};
 
 </script>
 <style scoped>
