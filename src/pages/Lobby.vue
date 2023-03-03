@@ -9,17 +9,19 @@
 
                     </ul>
                     <div id="startGameDiv" style="display: none">
-                        <button id="startGameBtn">Start</button>
-                        <button @click="copyLobbyURL">Get Lobby URL</button>
-                        
-                        
-                        <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
+                        <div class="start-button">
+                        <button id="startGameBtn" class="button">Start</button>
                     </div>
-                </center>
-            </div>
+                    
+                    
+                    <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
+                </div>
+            </center>
         </div>
     </div>
-</template>
+</div>
+<div class = "getURLdiv"><button @click="copyLobbyURL" class="button">Share</button></div>
+    </template>
 
 <script>
 
@@ -95,6 +97,7 @@ data(){
                     snap.forEach(x => {
                         const node = document.createElement("li");
                         const userNode = document.createTextNode(x.val()['display_name']);
+               
                         document.getElementById("myList").appendChild(node);
                         // adds host icon
                         if (x.val()['host']) {
@@ -124,10 +127,91 @@ data(){
 
 </script>
 <style scoped>
-.wrapper {
+
+.gameContainer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper { 
+    position: absolute;
+    top: 20%;
+    width: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
 }
+
+.button {
+  background-color: #A98467;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+#startGameBtn {
+  width: 200px; 
+  height: 50px; 
+  font-size: 18px;
+}
+
+.start-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; 
+}
+
+.button:hover {
+  background-color: #8B6C4E;
+}
+
+h1 {
+
+  border: 1px solid #8B6C4E;
+  border-radius: 10px;
+  background-color: #A98467;
+  
+  padding: 10px; 
+  text-align: center;
+  font-size: 32px;
+  margin: 0;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.gameContainer{
+    align-self: center;
+}
+
+.getURLdiv{
+    border-radius: 5px;
+    position: fixed;
+    bottom: 5%;
+    left: 28%;
+    width: 40%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background-color: #fff;
+    z-index: 1;
+}
+
 </style>
