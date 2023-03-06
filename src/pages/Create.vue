@@ -1,5 +1,3 @@
-
-
 <template>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
@@ -29,11 +27,9 @@
                     <i class="fas fa-lock"></i>
                     <input @focus="passwordListener" id="password" type="text" placeholder="Lobby Password" required>
                 </div>
-                <div class="row button">
+                <div class="row-button">
                     <input @click="login" type="button" id="loginbutton" value="Login">
                 </div>
-                <p style="display: none;" id="wrongpassword">Wrong password</p>
-                <p style="display: none;" id="emptyFields">Some fields are empty</p>
             </form>
         </div>
     </div>
@@ -82,7 +78,7 @@ export default {
             let displayname = document.getElementById('displayname');
 
             if (lobbyname.value == "" || password.value == "" || displayname.value == "") {
-                document.getElementById('emptyFields').style = "display:block;";
+                alert("Some fields are empty");
                 return;
             }
 
@@ -93,7 +89,7 @@ export default {
                     if (document.getElementById('loginbutton').value == 'join') {
                         get(child(ref(getDatabase()), lobbyname.value + "/settings")).then(async (snap) => {
                             if (password.value != snap.val()['password']) {
-                                document.getElementById('wrongpassword').style = "display: block";
+                                alert("Wrong Password");
                             } else {
                                 writeUser({
                                     displayname: displayname.value,
@@ -156,90 +152,113 @@ export default {
 
 </script>
 
-
-<style scoped>
-.container {
-    max-width: 440px;
-    padding: 0 20px;
-    margin: 170px auto;
-
+<style>
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #adc178;
 }
 
-.wrapper {
-    width: 100%;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
-}
-
-.wrapper .title {
-    height: 90px;
-    background: #a98467;
-    border-radius: 5px 5px 0 0;
-    color: rgb(0, 0, 0);
-    font-size: 30px;
-    font-weight: 600;
+.row-button {
     display: flex;
-    align-items: center;
     justify-content: center;
-
-}
-
-.wrapper form {
-    padding: 30px 25px 25px 25px;
-}
-
-.wrapper form .row {
+    align-items: center;
     height: 45px;
     margin-bottom: 15px;
     position: relative;
 }
 
-.wrapper form .row input {
+#loginbutton {
     height: 100%;
     width: 100%;
     outline: none;
-    padding-left: 60px;
     border-radius: 5px;
-    border: 1px solid lightgrey;
+    background: none;
+    background-color: #a98467;
     font-size: 16px;
     transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    align-items: center;
+    background-color: #f0ead2;
+}
+
+.container {
+  max-width: 440px;
+  padding: 0 20px;
+  margin: 170px auto;
+}
+
+.wrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper form {
+    padding: 30px 25px 25px 25px;
+}
+.wrapper .title {
+  height: 90px;
+  background: #a98467;
+  border-radius: 5px 5px 0 0;
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.wrapper form .row {
+  height: 45px;
+  width: 80%;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.wrapper form .row input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 60px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 form .row input:focus {
-    border-color: #a98467;
-    box-shadow: inset 0px 0px 2px 2px rgba(26, 188, 156, 0.25);
+  border-color: #a98467;
+  box-shadow: inset 0px 0px 2px 2px rgba(26, 188, 156, 0.25);
 }
 
 form .row input::placeholder {
-    color: #999;
+  color: #999;
 }
 
 .wrapper form .row i {
-    position: absolute;
-    width: 47px;
-    height: 100%;
-    color: #fff;
-    font-size: 18px;
-    background: #a98467;
-    border: 1px solid #a98467;
-    border-radius: 5px 0 0 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  width: 47px;
+  height: 100%;
+  color: #fff;
+  font-size: 18px;
+  background: #a98467;
+  border: 1px solid #a98467;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.wrapper form .button input {
-    color: #fff;
-    font-size: 20px;
-    font-weight: 500;
-    padding-left: 0px;
-    background: #a98467;
-    border: 1px solid #a98467;
-    cursor: pointer;
-}
-
-form .button input:hover {
-    background: #6c584c;
-}
 </style>
