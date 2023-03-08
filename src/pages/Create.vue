@@ -44,7 +44,7 @@ import { updateUser } from '../scripts/create'
 
 import { setLBname } from '../global.js'
 import { icons } from '../assets/icons';
-
+import { settings } from '../settings';
 export default {
     setup() {
         document.getElementById('htmlTitle').innerText = "GeoHunt - Create Lobby"
@@ -57,6 +57,7 @@ export default {
     methods: {
         create_lobby(lobbyname, password) {
             const createLobby = httpsCallable(getFunctions(), 'createLobby');
+            const updateLobby = httpsCallable(getFunctions(), 'updateLobbySettings')
             // create lobby on rtdb
             // creates lobby
             createLobby({
@@ -65,9 +66,22 @@ export default {
             })
                 .then((result) => {
                     console.log(result.data);
-                })
 
-                
+                })
+            updateLobby({
+                lobbyname: lobbyname,
+                password: password,
+                setting: "hunter_selection",
+                value: settings["hunterSelection"],
+            }).then((result) => {
+                console.log(result.data)
+            })
+            updateLobby({
+                lobbyname: lobbyname,
+                password: password,
+                setting: "nameTags",
+                value: settings["nameTags"],
+            })
 
         },
 
@@ -94,7 +108,7 @@ export default {
                                 writeUser({
                                     displayname: displayname.value,
                                     lobbyname: lobbyname.value,
-                                    icon: icons[Object.keys(icons)[Math.floor(Math.random()*Object.keys(icons).length)]],
+                                    icon: icons[Object.keys(icons)[Math.floor(Math.random() * Object.keys(icons).length)]],
                                 }).then((result) => {
                                     console.log(result.data);
                                     updateUser(getAuth(), lobbyname.value);
@@ -109,7 +123,7 @@ export default {
                         writeUser({
                             displayname: displayname.value,
                             lobbyname: lobbyname.value,
-                            icon: icons[Object.keys(icons)[Math.floor(Math.random()*Object.keys(icons).length)]],
+                            icon: icons[Object.keys(icons)[Math.floor(Math.random() * Object.keys(icons).length)]],
                         }).then((result) => {
                             console.log(result.data);
                             updateUser(getAuth(), lobbyname.value);

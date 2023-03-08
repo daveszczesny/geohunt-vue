@@ -4,6 +4,29 @@ const admin = require('firebase-admin')
 
 admin.initializeApp(functions.config().database);
 
+exports.updateLobbySettings = functions.https.onCall((data, context) => {
+    cors: 'Access-Control-Allow-Origin';
+
+    try{
+        const lobbyname = data.lobbyname;
+        const password = data.password;
+        const setting = data.setting;
+        const res = data.value;
+        if (setting == "hunter_selection"){
+            return admin.database().ref(lobbyname + '/settings/gameSettings/').update({
+                hunter_selection: res
+            })
+        } else if(setting == "nameTags"){
+            return admin.database().ref(lobbyname + '/settings/gameSettings/').update({
+                in_game_names: res
+            })
+        }
+    }catch(err){
+        console.log("Lobby updated");
+        return "Lobby updated";
+    }
+
+})
 
 exports.createLobby = functions.https.onCall((data, context) => {
     cors: 'Access-Control-Allow-Origin';
