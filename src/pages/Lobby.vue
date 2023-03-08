@@ -134,7 +134,7 @@ export default {
 
 .wrapper {
     position: absolute;
-    top: 10%;
+    top: 15%;
     left: 0%;
     display: flex;
     justify-content: center;

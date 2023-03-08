@@ -170,7 +170,6 @@ export default {
 body {
     height: 80%;
     overflow: hidden;
-    background-color: #adc178;
 }
 
 .row-button {

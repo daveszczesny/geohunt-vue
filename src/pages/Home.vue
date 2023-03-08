@@ -17,11 +17,6 @@
 html, body {
     height: 100%;
     overflow: hidden;
-    background-color: #adc178;
-    background: repeating-linear-gradient(0deg, #adc178 0, #adc178 20%, transparent 0, transparent 50%),repeating-linear-gradient(45deg, #A98467 0, #A98467 10%, transparent 0, transparent 50%);
-    background-size: 3em 3em;
-    background-color: #adc178;
-    opacity: 1
 }
 
 .mainText {
