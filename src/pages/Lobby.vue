@@ -13,7 +13,7 @@
                         <button id="startGameBtn" class="button">Start</button>
                         <button id="startGameBtn">Start</button>
                         <button @click="copyLobbyURL">Get Lobby URL</button>
-
+                        </div>
 
                     </div>
 
