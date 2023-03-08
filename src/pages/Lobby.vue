@@ -205,7 +205,6 @@ h1 {
     justify-content: center;
     align-items: center;
     padding: 16px;
-    background-color: #fff;
     z-index: 1;
 }
 </style>

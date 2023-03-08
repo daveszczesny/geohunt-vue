@@ -1,8 +1,7 @@
 
 <template>
     <div class="mainText">
-        <h2 style="font-size: medium;">Welcome to</h2>
-        <h1 style="font-weight: 600; font-size:xx-large;">Geo-Hunt</h1>
+        <center><h1 style="font-weight: 600; font-size:xx-large;">Welcome to <br>Geo-Hunt</h1></center>
     </div>
     <div class="button-container">
         <router-link  class="link" to="/create">Start</router-link>
@@ -19,9 +18,12 @@ html, body {
     height: 100%;
     overflow: hidden;
     background-color: #adc178;
+    background: repeating-linear-gradient(0deg, #adc178 0, #adc178 20%, transparent 0, transparent 50%),repeating-linear-gradient(45deg, #A98467 0, #A98467 10%, transparent 0, transparent 50%);
+    background-size: 3em 3em;
+    background-color: #adc178;
+    opacity: 1
 }
 
-/* Heading For the Home Page */
 .mainText {
     position: absolute;
     top: 0%;

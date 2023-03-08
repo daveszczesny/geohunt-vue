@@ -45,11 +45,13 @@
 <script>
 </script>
 <style scoped>
+body {
+    overflow: scroll;
+}
 .container {
     max-width: 440px;
     padding: 0 20px;
     margin: 170px auto;
-
 }
 
 .wrapper {
@@ -84,7 +86,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .wrapper .title2 {
@@ -97,7 +98,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 </style>

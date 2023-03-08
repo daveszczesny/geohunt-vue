@@ -1,10 +1,10 @@
 
 
 <template>
-  <div id="roleArea">You are <span id="banner">being hunted</span></div>
-  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" style="width: 100%; height:800px;" :map-id="mapID"
-    :center="center" :zoom="15" streetViewControl=false :mapTypeControl=false scaleControl=false zoomControl=false
-    keyboardShortcuts=false scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true
+  <div id="roleArea"><center>You are <span id="banner">being hunted</span></center></div>
+  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" class="map" :map-id="mapID"
+    :center="center" :zoom="15" :streetViewControl=false :mapTypeControl=false :scaleControl=false :zoomControl=false
+    :keyboardShortcuts=false scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true
     disableDefaultUI=true disableDoubleClickZoom=false gestureHandling="greedy">
     <Circle v-for="circle in proxyCircles" :options="circle" />
     <div v-for="hunter in proxyHunter">
@@ -166,10 +166,16 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style> 
 body {
     height: 80%;
     overflow: hidden;
     background-color: #adc178;
+}
+
+.map {
+  width: 96%;
+  position: absolute;
+  height: 95%;
 }
 </style>
