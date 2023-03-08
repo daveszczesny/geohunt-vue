@@ -9,27 +9,18 @@
 
                     </ul>
                     <div id="startGameDiv" style="display: none">
-<<<<<<< HEAD
-                        <div class="start-button">
-                        <button id="startGameBtn" class="button">Start</button>
-=======
                         <button id="startGameBtn">Start</button>
                         <button @click="copyLobbyURL">Get Lobby URL</button>
 
 
-                        <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
->>>>>>> 50880a166b8370e405afc85d54ae730cc358008d
                     </div>
-                    
-                    
-                    <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
-                </div>
-            </center>
+
+                </center>
+            </div>
         </div>
     </div>
-</div>
-<div class = "getURLdiv"><button @click="copyLobbyURL" class="button">Share</button></div>
-    </template>
+    <div class="getURLdiv"><button @click="copyLobbyURL" class="button">Share</button></div>
+</template>
 
 <script>
 
@@ -105,7 +96,7 @@ export default {
                     snap.forEach(x => {
                         const node = document.createElement("li");
                         const userNode = document.createTextNode(x.val()['display_name']);
-               
+
                         document.getElementById("myList").appendChild(node);
                         // adds host icon
                         if (x.val()['host']) {
@@ -135,7 +126,6 @@ export default {
 
 </script>
 <style scoped>
-
 .gameContainer {
     margin: 0;
     padding: 0;
@@ -146,7 +136,8 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.wrapper { 
+
+.wrapper {
     position: absolute;
     top: 20%;
     width: 0%;
@@ -160,54 +151,55 @@ export default {
 }
 
 .button {
-  background-color: #A98467;
-  border: none;
-  color: white;
-  padding: 12px 24px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
+    background-color: #A98467;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
 }
+
 #startGameBtn {
-  width: 200px; 
-  height: 50px; 
-  font-size: 18px;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
 }
 
 .start-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .button:hover {
-  background-color: #8B6C4E;
+    background-color: #8B6C4E;
 }
 
 h1 {
 
-  border: 1px solid #8B6C4E;
-  border-radius: 10px;
-  background-color: #A98467;
-  
-  padding: 10px; 
-  text-align: center;
-  font-size: 32px;
-  margin: 0;
-  padding: 16px;
-  margin-bottom: 10px;
+    border: 1px solid #8B6C4E;
+    border-radius: 10px;
+    background-color: #A98467;
+
+    padding: 10px;
+    text-align: center;
+    font-size: 32px;
+    margin: 0;
+    padding: 16px;
+    margin-bottom: 10px;
 }
 
-.gameContainer{
+.gameContainer {
     align-self: center;
 }
 
-.getURLdiv{
+.getURLdiv {
     border-radius: 5px;
     position: fixed;
     bottom: 5%;
@@ -221,5 +213,4 @@ h1 {
     background-color: #fff;
     z-index: 1;
 }
-
 </style>
