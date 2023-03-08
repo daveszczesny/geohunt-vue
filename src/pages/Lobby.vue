@@ -10,9 +10,7 @@
                     </ul>
                     <div id="startGameDiv" style="display: none">
                         <div class="start-button">
-                        <button id="startGameBtn" class="button">Start</button>
-                        <button id="startGameBtn">Start</button>
-                        <button @click="copyLobbyURL">Get Lobby URL</button>
+                            <button id="startGameBtn" class="button">Start</button>
                         </div>
 
                     </div>
@@ -27,7 +25,7 @@
 <script>
 
 
-import {getLBname} from '../global'
+import { getLBname } from '../global'
 import { getAuth } from 'firebase/auth';
 import { get, child, onValue, ref, getDatabase, update } from 'firebase/database';
 
@@ -36,31 +34,31 @@ import { icons } from '../assets/icons';
 export default {
 
 
-data(){
-    return{
-        lobby_name: getLBname(),
-        lobbyID: null,
-    };
-},
-
- methods: {
-    gamestart() {
-      console.log('Hello?');
-      this.$router.push('/');
+    data() {
+        return {
+            lobby_name: getLBname(),
+            lobbyID: null,
+        };
     },
 
-    async copyLobbyURL() {
-      
-      const url = window.location.href.replace(/\/$/, '')
-      const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
-      await navigator.clipboard.writeText(shareLink);
-      alert('Lobby URL copied to clipboard!');
+    methods: {
+        gamestart() {
+            console.log('Hello?');
+            this.$router.push('/');
+        },
+
+        async copyLobbyURL() {
+
+            const url = window.location.href.replace(/\/$/, '')
+            const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
+            await navigator.clipboard.writeText(shareLink);
+            alert('Lobby URL copied to clipboard!');
+        },
     },
-  },
 
-    
 
-    
+
+
 
     async mounted() {
         if (getAuth().currentUser == null)
@@ -88,32 +86,27 @@ data(){
                 start: true
             });
         })
-
-
-        // ensuring this only runs while at the lobby stage
-        if (this.$router.currentRoute._rawValue.fullPath == "/lobby") {
+        onValue(ref(getDatabase(), this.lobby_name + '/users'), (snap) => {
             try {
-                onValue(ref(getDatabase(), this.lobby_name + '/users'), (snap) => {
-                    document.getElementById("myList").innerText = " ";
-                    snap.forEach(x => {
-                        const node = document.createElement("li");
-                        const userNode = document.createTextNode(x.val()['display_name']);
-               
-                        document.getElementById("myList").appendChild(node);
-                        // adds host icon
-                        if (x.val()['host']) {
-                            const icon = document.createElement("i");
-                            icon.classList.add("fas");
-                            icon.classList.add("fa-crown")
-                            icon.setAttribute("style", "color:yellow;border:0;padding:0;position:relative;top:0.1%;left: 0%;")
-                            node.appendChild(icon)
-                        }
-                        node.appendChild(userNode);
-                    })
-                });
-            } catch (err) { }
+                document.getElementById("myList").innerText = " ";
+                snap.forEach(x => {
+                    const node = document.createElement("li");
+                    const userNode = document.createTextNode(x.val()['display_name']);
 
-        }
+                    document.getElementById("myList").appendChild(node);
+                    // adds host icon
+                    if (x.val()['host']) {
+                        const icon = document.createElement("i");
+                        icon.classList.add("fas");
+                        icon.classList.add("fa-crown")
+                        icon.setAttribute("style", "color:yellow;border:0;padding:0;position:relative;top:0.1%;left: 0%;")
+                        node.appendChild(icon)
+                    }
+                    node.appendChild(userNode);
+                })
+            }
+            catch (err) { }
+        });
 
 
         onValue(ref(getDatabase(), this.lobby_name + '/settings/start'), (snap) => {
@@ -128,7 +121,6 @@ data(){
 
 </script>
 <style scoped>
-
 .gameContainer {
     margin: 0;
     padding: 0;
@@ -139,7 +131,8 @@ data(){
     justify-content: center;
     align-items: center;
 }
-.wrapper { 
+
+.wrapper {
     position: absolute;
     top: 20%;
     width: 0%;
@@ -153,54 +146,55 @@ data(){
 }
 
 .button {
-  background-color: #A98467;
-  border: none;
-  color: white;
-  padding: 12px 24px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
+    background-color: #A98467;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
 }
+
 #startGameBtn {
-  width: 200px; 
-  height: 50px; 
-  font-size: 18px;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
 }
 
 .start-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .button:hover {
-  background-color: #8B6C4E;
+    background-color: #8B6C4E;
 }
 
 h1 {
 
-  border: 1px solid #8B6C4E;
-  border-radius: 10px;
-  background-color: #A98467;
-  
-  padding: 10px; 
-  text-align: center;
-  font-size: 32px;
-  margin: 0;
-  padding: 16px;
-  margin-bottom: 10px;
+    border: 1px solid #8B6C4E;
+    border-radius: 10px;
+    background-color: #A98467;
+
+    padding: 10px;
+    text-align: center;
+    font-size: 32px;
+    margin: 0;
+    padding: 16px;
+    margin-bottom: 10px;
 }
 
-.gameContainer{
+.gameContainer {
     align-self: center;
 }
 
-.getURLdiv{
+.getURLdiv {
     border-radius: 5px;
     position: fixed;
     bottom: 5%;
@@ -214,5 +208,4 @@ h1 {
     background-color: #fff;
     z-index: 1;
 }
-
 </style>
