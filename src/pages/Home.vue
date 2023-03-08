@@ -16,7 +16,7 @@
 <style>
 
 html, body {
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     background-color: #adc178;
 }
@@ -24,10 +24,10 @@ html, body {
 /* Heading For the Home Page */
 .mainText {
     position: absolute;
-    top: 0;
+    top: 0%;
     left: 0;
     width: 100%;
-    height: 15vh;
+    height: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,6 +37,7 @@ html, body {
   /* Button Container */
   .button-container {  
     position: relative;
+    height: 20%;
     top: 50vh;
     left: 0;
     width: 100%;

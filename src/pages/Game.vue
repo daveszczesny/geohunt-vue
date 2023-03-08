@@ -163,7 +163,8 @@ export default defineComponent({
 
 <style>
 body {
-  overscroll-behavior-y: contain;
-  overflow: hidden;
+    height: 80%;
+    overflow: hidden;
+    background-color: #adc178;
 }
 </style>

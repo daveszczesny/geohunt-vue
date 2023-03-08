@@ -154,7 +154,7 @@ export default {
 
 <style>
 body {
-    height: 100vh;
+    height: 80%;
     overflow: hidden;
     background-color: #adc178;
 }
