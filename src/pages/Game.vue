@@ -12,18 +12,26 @@
         {
           position: hunter.position
         }">
+        <InfoWindow v-if="this.infoWindow" :options="{
+
+          position: {lat: hunter.position.lat,
+            lng: hunter.position.lng},
+          content: hunter.name,
+          maxWidth: 150,
+        }"/>
         <div>
-          <img
-            :src="hunter.icon" />
+          <img :src="hunter.icon" />
         </div>
       </CustomMarker>
     </div>
 
-    <!-- <CustomMarker v-for="hunted in proxyHunted" :options="markerOptions"/> -->
 
     <CustomMarker v-for="hunted in proxyHunted" :options="{
       position: hunted.position,
     }">
+    <InfoWindow :options="{
+          position: hunted.position, content: hunted.name
+        }"/>
       <img :src="hunted.icon" />
     </CustomMarker>
 
@@ -32,34 +40,30 @@
   
 <script>
 import { defineComponent } from 'vue'
-import { GoogleMap, Marker, Circle, CustomMarker } from 'vue3-google-map'
+import { GoogleMap, Marker, Circle, CustomMarker, InfoWindow } from 'vue3-google-map'
 import { getAuth } from '@firebase/auth'
 import { getDatabase, ref, update, get, child } from 'firebase/database'
 import { getLBname } from '../global'
 
+import { settings } from '../settings'
+
 export default defineComponent({
-  components: { GoogleMap, Marker, Circle, CustomMarker },
+  components: { GoogleMap, Marker, Circle, CustomMarker, InfoWindow },
   data() {
     return {
       lobby_name: getLBname(),
       proxyCircles: this.circles,
       proxyHunter: this.hunterProxy,
       proxyHunted: this.huntedProxy,
+      infoWindow: settings["nameTags"],
 
-      // markerOptions: {
-      //   position: {lat:   53.28375377364412, lng: -9.049084323437237},
-      //   icon: {
-      //     url:"https://firebasestorage.googleapis.com/v0/b/geohunt-dff18.appspot.com/o/icons%2Fhunted1.png?alt=media&token=cc5a6ae7-3119-4f93-b6e8-c3ce689bff4f",
-      //     scaledSize: {width:20,height:20}
-      //   },
-      // }
     }
   },
   mounted: function () {
     window.setInterval(() => {
       window.scrollTo(500, 0);
       this.getLocation();
-    }, 5000)
+    }, settings["intervalTimer"])
   },
 
   setup() {
@@ -68,7 +72,7 @@ export default defineComponent({
     const mapID = "bc3210211695b110"
 
     const circles = []
-    const hunterProxy = []  
+    const hunterProxy = []
     const huntedProxy = []
 
     get(child(ref(getDatabase()), getLBname() + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
@@ -100,17 +104,19 @@ export default defineComponent({
       });
     },
 
-    drawHunter(coords, img) {
+    drawHunter(coords, img, name) {
       this.proxyHunter.push({
         position: coords,
-        icon: img
+        icon: img,
+        name: name,
       });
     },
 
-    drawHunted(coords, img){
+    drawHunted(coords, img, name) {
       this.proxyHunted.push({
         position: coords,
         icon: img,
+        name: name,
       });
     },
 
@@ -135,7 +141,7 @@ export default defineComponent({
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
                   snap.forEach(player => {
                     if (player.val()["team"] == "hunter") {
-                      this.drawHunter(player.val()["location"], player.val()["icon"]); // hunter icon
+                      this.drawHunter(player.val()["location"], player.val()["icon"], player.val()["display_name"]); // hunter icon
                     } else {
                       this.drawCircle(player.val()["location"]); // hunted icon
                     }
@@ -145,8 +151,7 @@ export default defineComponent({
                 get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
                   snap.forEach(player => {
                     if (player.val()["team"] == "hunter") { return; } // prevents the drawing of the hunter for the hunted
-                    // this.drawCircle(player.val()["location"])
-                    this.drawHunted(player.val()["location"], player.val()["icon"])
+                    this.drawHunted(player.val()["location"], player.val()["icon"],  player.val()["display_name"]);
                   })
                 })
               }
@@ -163,7 +168,8 @@ export default defineComponent({
 
 <style>
 body {
-  overscroll-behavior-y: contain;
-  overflow: hidden;
+    height: 80%;
+    overflow: hidden;
+    background-color: #adc178;
 }
 </style>
