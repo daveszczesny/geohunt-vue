@@ -134,8 +134,8 @@ export default {
 
 .wrapper {
     position: absolute;
-    top: 20%;
-    width: 0%;
+    top: 10%;
+    left: 0%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,4 +207,5 @@ h1 {
     padding: 16px;
     z-index: 1;
 }
+
 </style>

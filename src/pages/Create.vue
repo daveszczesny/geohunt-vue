@@ -194,6 +194,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 .header {
     position: absolute;
@@ -264,7 +265,7 @@ form .row input::placeholder {
 .wrapper form .row i {
   position: absolute;
   width: 47px;
-  height: 100%;
+  height: 105%;
   color: #fff;
   font-size: 18px;
   background: #a98467;

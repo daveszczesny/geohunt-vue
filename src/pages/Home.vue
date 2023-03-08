@@ -1,11 +1,11 @@
 
 <template>
     <div class="mainText">
-        <center><h1 style="font-weight: 600; font-size:xx-large;">Welcome to <br>Geo-Hunt</h1></center>
+        <center><h1 style="font-weight: 600; font-size:xx-large;">Welcome to<br>Geo-Hunt</h1></center>
     </div>
     <div class="button-container">
         <router-link  class="link" to="/create">Start</router-link>
-        <router-link class="link" to="/info">Info</router-link>
+        <router-link  class="link" to="/info">Info</router-link>
     </div>
 </template>
 
@@ -26,7 +26,7 @@ html, body {
 
 .mainText {
     position: absolute;
-    top: 0%;
+    top: 0;
     left: 0;
     width: 100%;
     height: 15%;
@@ -54,13 +54,15 @@ html, body {
     margin-left: 20%;
     background-color: #A98467;
     /* matte grey */
-    border: 1px solid;
+    border: 1px solid black;
     /* off white */
     -webkit-text-fill-color: whitesmoke;
     padding: 0px 20px;
     /* add some padding */
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    font-size: x-large;
 }
 
 </style>
