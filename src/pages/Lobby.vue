@@ -9,20 +9,12 @@
 
                     </ul>
                     <div id="startGameDiv" style="display: none">
-<<<<<<< HEAD
                         <div class="start-button">
                         <button id="startGameBtn" class="button">Start</button>
-=======
-                        <button id="startGameBtn">Start</button>
-                        <button @click="copyLobbyURL">Get Lobby URL</button>
-
-
-                        <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
->>>>>>> 50880a166b8370e405afc85d54ae730cc358008d
                     </div>
                     
                     
-                    <!-- <router-link to="/game" id="startGameBtn">Start</router-link> -->
+                
                 </div>
             </center>
         </div>
@@ -34,7 +26,7 @@
 <script>
 
 
-import { getLBname } from '../global'
+import {getLBname} from '../global'
 import { getAuth } from 'firebase/auth';
 import { get, child, onValue, ref, getDatabase, update } from 'firebase/database';
 
@@ -43,31 +35,31 @@ import { icons } from '../assets/icons';
 export default {
 
 
-    data() {
-        return {
-            lobby_name: getLBname(),
-            lobbyID: null,
-        };
+data(){
+    return{
+        lobby_name: getLBname(),
+        lobbyID: null,
+    };
+},
+
+ methods: {
+    gamestart() {
+      console.log('Hello?');
+      this.$router.push('/');
     },
 
-    methods: {
-        gamestart() {
-            console.log('Hello?');
-            this.$router.push('/');
-        },
-
-        async copyLobbyURL() {
-
-            const url = window.location.href.replace(/\/$/, '')
-            const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
-            await navigator.clipboard.writeText(shareLink);
-            alert('Lobby URL copied to clipboard!');
-        },
+    async copyLobbyURL() {
+      
+      const url = window.location.href.replace(/\/$/, '')
+      const shareLink = url.replace(/\/lobby$/, '/sharelink/') + this.lobby_name;
+      await navigator.clipboard.writeText(shareLink);
+      alert('Lobby URL copied to clipboard!');
     },
+  },
 
+    
 
-
-
+    
 
     async mounted() {
         if (getAuth().currentUser == null)
