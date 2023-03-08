@@ -11,17 +11,18 @@
                     <div id="startGameDiv" style="display: none">
                         <div class="start-button">
                         <button id="startGameBtn" class="button">Start</button>
+                        <button id="startGameBtn">Start</button>
+                        <button @click="copyLobbyURL">Get Lobby URL</button>
+
+
                     </div>
-                    
-                    
-                
-                </div>
-            </center>
+
+                </center>
+            </div>
         </div>
     </div>
-</div>
-<div class = "getURLdiv"><button @click="copyLobbyURL" class="button">Share</button></div>
-    </template>
+    <div class="getURLdiv"><button @click="copyLobbyURL" class="button">Share</button></div>
+</template>
 
 <script>
 
