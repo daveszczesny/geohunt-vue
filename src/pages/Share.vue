@@ -18,7 +18,7 @@
             <form action="#" autocomplete="off">
                 <div class="row">
                     <i class="fas fa-user"></i>
-                    <input id="dname" type="text" placeholder="Username" required>
+                    <input class="name" id="dname" type="text" placeholder="Username" required>
                 </div>
 
                 <div class="row button">
@@ -136,7 +136,7 @@ export default {
 
 .wrapper form .row input {
     height: 100%;
-    width: 100%;
+    width: 80%;
     outline: none;
     padding-left: 60px;
     border-radius: 5px;
@@ -157,7 +157,7 @@ form .row input::placeholder {
 .wrapper form .row i {
     position: absolute;
     width: 47px;
-    height: 100%;
+    height: 105%;
     color: #fff;
     font-size: 18px;
     background: #a98467;
@@ -178,6 +178,10 @@ form .row input::placeholder {
     cursor: pointer;
 }
 
+.button {
+    display: flex;
+    justify-content: center;
+}
 form .button input:hover {
     background: #6c584c;
 }

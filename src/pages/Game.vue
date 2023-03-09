@@ -75,13 +75,17 @@ export default defineComponent({
     const hunterProxy = []
     const huntedProxy = []
 
+    // sets a few visuals for the user.
+    // Tab title when player is hunter or hunted
+    // Banner for hunter and hunted
     get(child(ref(getDatabase()), getLBname() + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
       if (snapshot.val()["team"] == "hunter") {
         document.getElementById('banner').innerText = "a hunter";
-        document.getElementById('roleArea').style = "background-color: rgb(200,0,0)";
+        document.getElementById("roleArea").style="background-color: red";
 
         document.getElementById('htmlTitle').innerText = "GeoHunt - gone hunting";
-      } else {
+      } else if(snapshot.val()["team"] == "hunted") {
+        document.getElementById("roleArea").style="background-color: green";
 
         document.getElementById('htmlTitle').innerText = "GeoHunt - gone hiding";
       }
@@ -168,14 +172,14 @@ export default defineComponent({
 
 <style> 
 body {
-    height: 80%;
-    overflow: hidden;
-    background-color: #adc178;
+  background-color: #adc178;
+  height: 80%;
+  overflow: hidden;
 }
 
 .map {
-  width: 96%;
-  position: absolute;
   height: 95%;
+  position: absolute;
+  width: 96%;
 }
 </style>

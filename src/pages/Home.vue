@@ -20,44 +20,40 @@ html, body {
 }
 
 .mainText {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 15%;
-    display: flex;
-    flex-direction: column;
     align-items: center;
     background-color: #f0ead2;
-  }
-
-  /* Button Container */
-  .button-container {  
-    position: relative;
-    height: 20%;
-    top: 50vh;
+    display: flex;
+    flex-direction: column;
+    height: 15%;
     left: 0;
+    position: absolute;
+    top: 0;
     width: 100%;
+}
+
+/* Button Container */
+.button-container {  
+    align-items: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
-  }
+    height: 20%;
+    left: 0;
+    position: relative;
+    top: 50vh;
+    width: 100%;
+}
 
-  .link {
-    float: none;
-    /* float the buttons to the left */
-    margin-left: 20%;
+.link {
     background-color: #A98467;
-    /* matte grey */
     border: 1px solid black;
-    /* off white */
-    -webkit-text-fill-color: whitesmoke;
-    padding: 0px 20px;
-    /* add some padding */
     border-radius: 5px;
     cursor: pointer;
-    text-decoration: none;
+    float: none;
     font-size: x-large;
+    margin-left: 20%;
+    padding: 0 20px;
+    text-decoration: none;
+    -webkit-text-fill-color: whitesmoke;
 }
 
 </style>

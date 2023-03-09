@@ -28,7 +28,7 @@
                     <input @focus="passwordListener" id="password" type="text" placeholder="Lobby Password" required>
                 </div>
                 <div class="row-button">
-                    <input @click="login" type="button" id="loginbutton" value="Login">
+                    <input @click="login" type="button" id="loginbutton" class="login-button" value="Login">
                 </div>
             </form>
         </div>
@@ -173,88 +173,90 @@ body {
 }
 
 .row-button {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
     height: 45px;
+    justify-content: center;
     margin-bottom: 15px;
     position: relative;
 }
 
-#loginbutton {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border-radius: 5px;
+.login-button {
+    align-items: center;
     background: none;
     background-color: #a98467;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 5px;
     color: black;
-}
-.header {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: flex;
+    font-size: 16px;
+    height: 100%;
+    justify-content: center;
+    outline: 0;
+    transition: all 0.3s ease;
     width: 100%;
-    height: 10%;
+}
+
+.header {
     align-items: center;
     background-color: #f0ead2;
+    height: 10%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .container {
-  max-width: 440px;
-  padding: 0 20px;
-  margin: 170px auto;
+    margin: 170px auto;
+    max-width: 440px;
+    padding: 0 20px;
 }
 
 .wrapper {
-  width: 100%;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .wrapper form {
     padding: 30px 25px 25px 25px;
 }
+
 .wrapper .title {
-  height: 90px;
-  background: #a98467;
-  border-radius: 5px 5px 0 0;
-  color: rgb(0, 0, 0);
-  font-size: 30px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    background: #a98467;
+    border-radius: 5px 5px 0 0;
+    color: rgb(0, 0, 0);
+    display: flex;
+    font-size: 30px;
+    font-weight: 600;
+    height: 90px;
+    justify-content: center;
 
 }
 
 .wrapper form .row {
   height: 45px;
-  width: 80%;
   margin-bottom: 15px;
   position: relative;
+  width: 80%;
 }
 
 .wrapper form .row input {
-  height: 100%;
-  width: 100%;
-  outline: none;
-  padding-left: 60px;
-  border-radius: 5px;
-  border: 1px solid lightgrey;
-  font-size: 16px;
-  transition: all 0.3s ease;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 100%;
+    outline: none;
+    padding-left: 60px;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
 form .row input:focus {
   border-color: #a98467;
-  box-shadow: inset 0px 0px 2px 2px rgba(26, 188, 156, 0.25);
+  box-shadow: inset 0 0 2px 2px rgba(26, 188, 156, 0.25);
 }
 
 form .row input::placeholder {
@@ -262,17 +264,17 @@ form .row input::placeholder {
 }
 
 .wrapper form .row i {
-  position: absolute;
-  width: 47px;
-  height: 105%;
-  color: #fff;
-  font-size: 18px;
-  background: #a98467;
-  border: 1px solid #a98467;
-  border-radius: 5px 0 0 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    background: #a98467;
+    border: 1px solid #a98467;
+    border-radius: 5px 0 0 5px;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+    height: 105%;
+    justify-content: center;
+    position: absolute;
+    width: 47px;
 }
 
 </style>
