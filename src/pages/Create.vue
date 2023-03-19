@@ -86,7 +86,7 @@ export default {
             // creates lobby
             createLobby({
                 lobbyname: lobbyname,
-                password: password
+                password: btoa(password)
             })
                 .then((result) => {
                     console.log(result.data);
@@ -95,7 +95,7 @@ export default {
                 })
             updateLobby({
                 lobbyname: lobbyname,
-                password: password,
+                password: btoa(password),
                 setting: "hunter_selection",
                 value: settings["hunterSelection"],
             }).then((result) => {
@@ -106,7 +106,7 @@ export default {
             })
             updateLobby({
                 lobbyname: lobbyname,
-                password: password,
+                password: btoa(password),
                 setting: "nameTags",
                 value: settings["nameTags"],
             }).then(result => {
@@ -135,7 +135,7 @@ export default {
                     console.log("Signed in succesfully");
                     if (document.getElementById('loginbutton').value == 'join') {
                         get(child(ref(getDatabase()), lobbyname.value + "/settings")).then(async (snap) => {
-                            if (password.value != snap.val()['password']) {
+                            if (btoa(password.value) != snap.val()['password']) {
                                 alert("Wrong Password");
                             } else {
                                 writeUser({
