@@ -39,7 +39,7 @@ exports.createLobby = functions.https.onCall((data, context) => {
             start: false,
             gameSettings: {
                 hunter_selection: "random",
-                in_game_names: true
+                in_game_names: false
             }
         }).then(() => {
             console.log("Added lobby");

@@ -1,7 +1,7 @@
 
 <template>
     <div class="mainText">
-        <center><h1 id="txt" style="font-weight: 600; font-size:xx-large;">Welcome to<br>Geo-Hunt</h1></center>
+        <center><h1 id="txt" style="font-weight: 600; font-size:xx-large;">Welcome to<br>GeoHunt</h1></center>
     </div>
     <div class="button-container">
         <router-link  class="link" to="/create">Start</router-link>
