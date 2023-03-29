@@ -1,0 +1,1 @@
+import{b as a,c as o,r as e,m as s,u as d,n as i,p as f}from"./index-3bfc6a16.js";function h(t,r){a(o(e(s),r+"/users")).then(u=>{Object.keys(u.val()).length==1&&d(e(s,r+"/users/"+t.currentUser.uid),{host:!0})});const n=e(s,r+"/users/"+t.currentUser.uid),c=e(s,".info/connected");i(c,()=>{f(n).remove()})}export{h as u};
