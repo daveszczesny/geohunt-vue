@@ -12,6 +12,9 @@
     </header>
 
     <div id="preLobbyDiv" class="container">
+
+
+
         <div class="wrapper">
             <div class="title"><span>Geo-Hunt Login</span></div>
             <form action="#" autocomplete="off">
@@ -30,8 +33,19 @@
                 <div class="row-button">
                     <input @click="login" type="button" id="loginbutton" class="login-button" value="Login">
                 </div>
+
             </form>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressbar">
+
+                </div>
+            </div>
+
         </div>
+
+
+
+
     </div>
 </template>
 
@@ -52,41 +66,60 @@ export default {
     data() {
         return {
             wrongpassword_boolean: false,
+            maxProgressBar: 100,
+            currentProgressBar: 0,
         }
     },
     methods: {
         create_lobby(lobbyname, password) {
+
+            const progressBar = document.getElementById("progressbar");
+
+            this.currentProgressBar += 30;
+            progressBar.style.width = (this.currentProgressBar / this.maxProgressBar) * 100 + '%';
+
+
+
             const createLobby = httpsCallable(getFunctions(), 'createLobby');
             const updateLobby = httpsCallable(getFunctions(), 'updateLobbySettings')
             // create lobby on rtdb
             // creates lobby
             createLobby({
                 lobbyname: lobbyname,
-                password: password
+                password: btoa(password)
             })
                 .then((result) => {
                     console.log(result.data);
-
+                    this.currentProgressBar += 33;
+                    progressBar.style.width = (this.currentProgressBar / this.maxProgressBar) * 100 + '%';
                 })
             updateLobby({
                 lobbyname: lobbyname,
-                password: password,
+                password: btoa(password),
                 setting: "hunter_selection",
                 value: settings["hunterSelection"],
             }).then((result) => {
                 console.log(result.data)
+                this.currentProgressBar += 33;
+                progressBar.style.width = (this.currentProgressBar / this.maxProgressBar) * 100 + '%';
+
             })
             updateLobby({
                 lobbyname: lobbyname,
-                password: password,
+                password: btoa(password),
                 setting: "nameTags",
                 value: settings["nameTags"],
+            }).then(result => {
+                this.currentProgressBar += 33;
+                progressBar.style.width = (this.currentProgressBar / this.maxProgressBar) * 100 + '%';
+
             })
 
         },
 
         // creates anonymous user
         login() {
+
             let lobbyname = document.getElementById("lobbyname");
             let password = document.getElementById("password");
             let displayname = document.getElementById('displayname');
@@ -102,7 +135,7 @@ export default {
                     console.log("Signed in succesfully");
                     if (document.getElementById('loginbutton').value == 'join') {
                         get(child(ref(getDatabase()), lobbyname.value + "/settings")).then(async (snap) => {
-                            if (password.value != snap.val()['password']) {
+                            if (btoa(password.value) != snap.val()['password']) {
                                 alert("Wrong Password");
                             } else {
                                 writeUser({
@@ -237,10 +270,10 @@ body {
 }
 
 .wrapper form .row {
-  height: 45px;
-  margin-bottom: 15px;
-  position: relative;
-  width: 80%;
+    height: 45px;
+    margin-bottom: 15px;
+    position: relative;
+    width: 80%;
 }
 
 .wrapper form .row input {
@@ -255,12 +288,12 @@ body {
 }
 
 form .row input:focus {
-  border-color: #a98467;
-  box-shadow: inset 0 0 2px 2px rgba(26, 188, 156, 0.25);
+    border-color: #a98467;
+    box-shadow: inset 0 0 2px 2px rgba(26, 188, 156, 0.25);
 }
 
 form .row input::placeholder {
-  color: #999;
+    color: #999;
 }
 
 .wrapper form .row i {
@@ -277,4 +310,18 @@ form .row input::placeholder {
     width: 47px;
 }
 
+/* Progress Bar */
+.progress-container {
+    padding-bottom: 5%;
+    width: 100%;
+    height: 10px;
+    background-color: #fff;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #a98467;
+    width: 0%;
+    max-width: 47px;
+}
 </style>

@@ -29,7 +29,7 @@
     <CustomMarker v-for="hunted in proxyHunted" :options="{
       position: hunted.position,
     }">
-    <InfoWindow :options="{
+    <InfoWindow v-if="this.infoWindow"  :options="{
           position: hunted.position, content: hunted.name
         }"/>
       <img :src="hunted.icon" />
