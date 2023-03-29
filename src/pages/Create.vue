@@ -6,7 +6,7 @@
     <header>
         <center>
             <div class="header">
-                <h1>Geo-Hunt;</h1>
+                <h1>GeoHunt</h1>
             </div>
         </center>
     </header>
@@ -16,7 +16,7 @@
 
 
         <div class="wrapper">
-            <div class="title"><span>Geo-Hunt Login</span></div>
+            <div class="title"><span>GeoHunt Login</span></div>
             <form action="#" autocomplete="off">
                 <div class="row">
                     <i class="fas fa-user"></i>
@@ -186,10 +186,7 @@ export default {
                             loginButton.value = 'join'
                         }
                     });
-
-
                 } else {
-
                     loginButton.value = 'create'
                 }
             })

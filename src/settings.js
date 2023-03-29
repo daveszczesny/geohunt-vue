@@ -1,5 +1,5 @@
 export const settings = {
-    "intervalTimer": 5000,
+    "intervalTimer": 150000,
     "nameTags": false,
     "hunterSelection": "random",
 }
