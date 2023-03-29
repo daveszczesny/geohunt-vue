@@ -1,11 +1,13 @@
 
 
 <template>
-  <div id="roleArea"><center>You are <span id="banner">being hunted</span></center></div>
-  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" class="map" :map-id="mapID"
-    :center="center" :zoom="15" :streetViewControl=false :mapTypeControl=false :scaleControl=false :zoomControl=false
-    :keyboardShortcuts=false scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true
-    disableDefaultUI=true disableDoubleClickZoom=false gestureHandling="greedy">
+  <div id="roleArea">
+    <center>You are <span id="banner">being hunted</span></center>
+  </div>
+  <GoogleMap api-key="AIzaSyB0vMYrB2rlb-aDao6aMHbRqQg3oIlQby4" class="map" :map-id="mapID" :center="center" :zoom="15"
+    :streetViewControl=false :mapTypeControl=false :scaleControl=false :zoomControl=false :keyboardShortcuts=false
+    scrollwheel=true :navigationControl=false :fullscreenControl=false draggable=true disableDefaultUI=true
+    disableDoubleClickZoom=false gestureHandling="greedy">
     <Circle v-for="circle in proxyCircles" :options="circle" />
     <div v-for="hunter in proxyHunter">
       <CustomMarker :options="
@@ -14,11 +16,13 @@
         }">
         <InfoWindow v-if="this.infoWindow" :options="{
 
-          position: {lat: hunter.position.lat,
-            lng: hunter.position.lng},
+          position: {
+            lat: hunter.position.lat,
+            lng: hunter.position.lng
+          },
           content: hunter.name,
           maxWidth: 150,
-        }"/>
+        }" />
         <div>
           <img :src="hunter.icon" />
         </div>
@@ -29,9 +33,9 @@
     <CustomMarker v-for="hunted in proxyHunted" :options="{
       position: hunted.position,
     }">
-    <InfoWindow v-if="this.infoWindow"  :options="{
-          position: hunted.position, content: hunted.name
-        }"/>
+      <InfoWindow v-if="this.infoWindow" :options="{
+        position: hunted.position, content: hunted.name
+      }" />
       <img :src="hunted.icon" />
     </CustomMarker>
 
@@ -81,11 +85,11 @@ export default defineComponent({
     get(child(ref(getDatabase()), getLBname() + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
       if (snapshot.val()["team"] == "hunter") {
         document.getElementById('banner').innerText = "a hunter";
-        document.getElementById("roleArea").style="background-color: red";
+        document.getElementById("roleArea").style = "background-color: red";
 
         document.getElementById('htmlTitle').innerText = "GeoHunt - gone hunting";
-      } else if(snapshot.val()["team"] == "hunted") {
-        document.getElementById("roleArea").style="background-color: green";
+      } else if (snapshot.val()["team"] == "hunted") {
+        document.getElementById("roleArea").style = "background-color: green";
 
         document.getElementById('htmlTitle').innerText = "GeoHunt - gone hiding";
       }
@@ -135,51 +139,54 @@ export default defineComponent({
 
             update(ref(getDatabase(), this.lobby_name + "/users/" + getAuth().currentUser.uid), {
               location: pos
+            }).then(() => {
+              this.drawLocation();
             })
-
-            get(child(ref(getDatabase()), this.lobby_name + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
-              this.proxyCircles = []
-              this.proxyHunter = []
-              this.proxyHunted = []
-              if (snapshot.val()["team"] == "hunter") {
-                get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
-                  snap.forEach(player => {
-                    if (player.val()["team"] == "hunter") {
-                      this.drawHunter(player.val()["location"], player.val()["icon"], player.val()["display_name"]); // hunter icon
-                    } else {
-                      this.drawCircle(player.val()["location"]); // hunted icon
-                    }
-                  })
-                })
-              } else if (snapshot.val()["team"] == "hunted") {
-                get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
-                  snap.forEach(player => {
-                    if (player.val()["team"] == "hunter") { return; } // prevents the drawing of the hunter for the hunted
-                    this.drawHunted(player.val()["location"], player.val()["icon"],  player.val()["display_name"]);
-                  })
-                })
-              }
-            })
-
           }
         )
       }
+    },
+
+    drawLocation() {
+      get(child(ref(getDatabase()), this.lobby_name + "/users/" + getAuth().currentUser.uid + "/")).then(snapshot => {
+        this.proxyCircles = []
+        this.proxyHunter = []
+        this.proxyHunted = []
+        if (snapshot.val()["team"] == "hunter") {
+          get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
+            snap.forEach(player => {
+              if (player.val()["team"] == "hunter") {
+                this.drawHunter(player.val()["location"], player.val()["icon"], player.val()["display_name"]); // hunter icon
+              } else {
+                this.drawCircle(player.val()["location"]); // hunted icon
+              }
+            })
+          })
+        } else if (snapshot.val()["team"] == "hunted") {
+          get(child(ref(getDatabase()), this.lobby_name + "/users/")).then(snap => {
+            snap.forEach(player => {
+              if (player.val()["team"] == "hunter") { return; } // prevents the drawing of the hunter for the hunted
+              this.drawHunted(player.val()["location"], player.val()["icon"], player.val()["display_name"]);
+            })
+          })
+        }
+      })
     }
+
   }
 
 })
 </script>
 
-<style> 
-body {
-  background-color: #adc178;
-  height: 80%;
-  overflow: hidden;
-}
+<style> body {
+   background-color: #adc178;
+   height: 80%;
+   overflow: hidden;
+ }
 
-.map {
-  height: 95%;
-  position: absolute;
-  width: 96%;
-}
+ .map {
+   height: 95%;
+   position: absolute;
+   width: 96%;
+ }
 </style>
