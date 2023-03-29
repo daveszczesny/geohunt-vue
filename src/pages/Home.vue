@@ -9,16 +9,7 @@
     </div>
 </template>
 
-<script>
-
-</script>
-
 <style>
-
-html, body {
-    height: 100%;
-    overflow: hidden;
-}
 
 .mainText {
     align-items: center;
