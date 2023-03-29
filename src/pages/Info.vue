@@ -103,6 +103,7 @@ export default {
   font-size: x-large;
   padding: 5px;
   width: 100%;
+  color: black;
 }
 
 </style>
