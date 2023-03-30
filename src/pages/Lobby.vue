@@ -81,6 +81,24 @@ export default {
             }
         });
 
+        // get inital geolocation
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+
+                    update(ref(getDatabase(), this.lobby_name + '/users/' + getAuth().currentUser), {
+                        location: pos
+                    })
+                }
+            )
+        }
+
+
         document.getElementById('startGameBtn').addEventListener('click', () => {
             update(ref(getDatabase(), this.lobby_name + "/settings/"), {
                 start: true
@@ -207,5 +225,4 @@ h1 {
     padding: 16px;
     z-index: 1;
 }
-
 </style>
