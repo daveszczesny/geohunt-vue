@@ -30,7 +30,7 @@
       <ul>
         <li>Brian - Frontend Developer</li>
         <li>Dave - Backend Developer</li>
-        <li>Tomas- Frontend Developer</li>
+        <li>Tomas - Frontend Developer</li>
       </ul>
     </div>
     <div class="leaveInfoPage">
@@ -105,5 +105,4 @@ export default {
   width: 100%;
   color: black;
 }
-
 </style>

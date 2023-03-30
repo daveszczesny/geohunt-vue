@@ -87,30 +87,4 @@
     }
 }
 
-
-/* Button Container
-.button-container {  
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    height: 20%;
-    left: 0;
-    position: relative;
-    top: 50vh;
-    width: 100%;
-}
-
-.link {
-    background-color: #A98467;
-    border: 1px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    float: none;
-    font-size: x-large;
-    margin-left: 20%;
-    padding: 0 20px;
-    text-decoration: none;
-    -webkit-text-fill-color: whitesmoke;
-} */
 </style>
